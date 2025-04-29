@@ -121,6 +121,8 @@ class PartitionParametersTypedDict(TypedDict):
     r"""If file is gzipped, use this content type after unzipping."""
     hi_res_model_name: NotRequired[Nullable[str]]
     r"""The name of the inference model used when strategy is hi_res"""
+    chunking_model_name: NotRequired[Nullable[str]]
+    r"""Chunking model name for custom chunking strategy"""
     include_orig_elements: NotRequired[Nullable[bool]]
     r"""When a chunking strategy is specified, each returned chunk will include the elements consolidated to form that chunk as `.metadata.orig_elements`. Default: true."""
     include_page_breaks: NotRequired[bool]
@@ -219,6 +221,11 @@ class PartitionParameters(BaseModel):
     r"""If file is gzipped, use this content type after unzipping."""
 
     hi_res_model_name: Annotated[
+        OptionalNullable[str], FieldMetadata(multipart=True)
+    ] = None
+    r"""Chunking model name for custom chunking strategy"""
+
+    chunking_model_name: Annotated[
         OptionalNullable[str], FieldMetadata(multipart=True)
     ] = None
     r"""The name of the inference model used when strategy is hi_res"""
@@ -377,6 +384,7 @@ class PartitionParameters(BaseModel):
             "extract_image_block_types",
             "gz_uncompressed_content_type",
             "hi_res_model_name",
+            "chunking_model_name",
             "include_orig_elements",
             "include_page_breaks",
             "include_slide_notes",
@@ -416,6 +424,7 @@ class PartitionParameters(BaseModel):
             "encoding",
             "gz_uncompressed_content_type",
             "hi_res_model_name",
+            "chunking_model_name",
             "include_orig_elements",
             "max_characters",
             "new_after_n_chars",
@@ -434,6 +443,7 @@ class PartitionParameters(BaseModel):
             "encoding",
             "gz_uncompressed_content_type",
             "hi_res_model_name",
+            "chunking_model_name",
             "include_orig_elements",
             "max_characters",
             "new_after_n_chars",
